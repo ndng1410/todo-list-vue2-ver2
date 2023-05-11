@@ -58,13 +58,13 @@ export default {
       //   this.nextTodoId++;
       //   this.input = "";
       // }
-      this.nextTodoId = this.$store.getters.getCurrentId;
+      this.nextTodoId = this.$store.getters.getCurrentId + 1;
       console.log(this.$store.getters.getCurrentId);
       EventBus.$emit("addNewTaskItem", {
         taskName: this.input,
         id: this.nextTodoId,
       });
-      this.nextTodoId++;
+      this.$store.state.currentID++;
       this.input = "";
     },
 
