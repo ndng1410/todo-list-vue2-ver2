@@ -10,10 +10,15 @@ export default new Vuex.Store({
       // { id: 2, taskName: "job2" },
       // { id: 3, taskName: "job3" },
     ],
+    currentID: null,
   },
   getters: {
     getTaskItem(state) {
       return state.tasks;
+    },
+    getCurrentId(state) {
+      if (state.currentID == null) return 0;
+      return state.currentID;
     },
   },
   mutations: {
@@ -30,6 +35,9 @@ export default new Vuex.Store({
     REMOVE_TASK(state, removedTask) {
       state.tasks.splice(removedTask, 1);
     },
+    SET_CURRENT_ID(state, currentID) {
+      state.currentID = currentID;
+    },
   },
   actions: {
     // handleSetTaskName(context, newTaskName) {
@@ -42,10 +50,14 @@ export default new Vuex.Store({
     //   context.commit("setTask", newTask);
     // },
     setTask(context, newTask) {
-      context.commit('SET_TASK', newTask);
-    }, 
+      context.commit("SET_TASK", newTask);
+    },
     removeTask(context, removedTask) {
-      context.commit('REMOVE_TASK', removedTask);
-    }
+      context.commit("REMOVE_TASK", removedTask);
+    },
+    setCurrentID(context, currentID) {
+      context.commit("SET_CURRENT_ID", currentID);
+      console.log(currentID);
+    },
   },
 });

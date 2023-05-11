@@ -24,6 +24,7 @@
 <script>
 // import CardTask from "./CardTask.vue";
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 // import { mapActions } from "vuex";
 // import store from "../assets/store/store.js";
 import { EventBus } from "../main";
@@ -34,13 +35,14 @@ export default {
     // 'card-task': CardTask,
   },
   // computed nhận value từ store, task() có value = data tasks trong store
-  computed: mapState({
-    tasks: (state) => state.tasks,
-  }),
+  computed: {
+    ...mapState(["tasks", "currentID"]),
+    ...mapGetters(["getTaskItem", "getCurrentId"]),
+  },
   data() {
     return {
       input: "",
-      nextTodoId: 0,
+      nextTodoId: null,
     };
   },
   methods: {
@@ -56,6 +58,8 @@ export default {
       //   this.nextTodoId++;
       //   this.input = "";
       // }
+      this.nextTodoId = this.$store.getters.getCurrentId;
+      console.log(this.$store.getters.getCurrentId);
       EventBus.$emit("addNewTaskItem", {
         taskName: this.input,
         id: this.nextTodoId,
